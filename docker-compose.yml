@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: postgres-buses
+    image: postgres
+    environment:
+      POSTGRES_USER: bus
+      POSTGRES_PASSWORD: 123
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: buses
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - bus-booking-network
+    restart: unless-stopped
+networks:
+  bus-booking-network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
