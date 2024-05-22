@@ -1,0 +1,1 @@
+Practice of creating web applications based on microservice architecture using the Spring framework
