@@ -1,6 +1,7 @@
 package com.skopinau.bus.controller;
 
 import com.skopinau.bus.dto.BusDto;
+import com.skopinau.bus.model.entity.Bus;
 import com.skopinau.bus.service.BusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/buses")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/buses")
 public class BusController {
 
     private final BusService busService;
@@ -22,10 +23,9 @@ public class BusController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createBus(
-            @RequestBody BusDto busDto
-    ) {
-        busService.saveBus(busDto);
+    public ResponseEntity<Bus> createBus(@RequestBody BusDto busDto) {
+        return new ResponseEntity<>(busService.saveBus(busDto), HttpStatus.CREATED);
     }
 }
+
+

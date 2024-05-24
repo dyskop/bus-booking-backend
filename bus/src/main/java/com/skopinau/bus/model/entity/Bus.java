@@ -1,4 +1,4 @@
-package com.skopinau.bus.entity;
+package com.skopinau.bus.model.entity;
 
 import com.skopinau.bus.model.Amenity;
 import jakarta.persistence.*;

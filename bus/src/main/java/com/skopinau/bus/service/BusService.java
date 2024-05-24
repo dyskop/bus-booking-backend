@@ -2,6 +2,7 @@ package com.skopinau.bus.service;
 
 import com.skopinau.bus.dto.BusDto;
 import com.skopinau.bus.mapper.BusMapper;
+import com.skopinau.bus.model.entity.Bus;
 import com.skopinau.bus.repository.BusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class BusService {
                 .toList();
     }
 
-    public void saveBus(BusDto busDto) {
-        busRepository.save(busMapper.busDtoToBus(busDto));
+    public Bus saveBus(BusDto busDto) {
+        return busRepository.save(busMapper.busDtoToBus(busDto));
     }
 }

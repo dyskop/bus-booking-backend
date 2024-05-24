@@ -1,7 +1,7 @@
 package com.skopinau.bus.mapper;
 
 import com.skopinau.bus.dto.BusDto;
-import com.skopinau.bus.entity.Bus;
+import com.skopinau.bus.model.entity.Bus;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
