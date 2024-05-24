@@ -1,15 +1,15 @@
 package com.skopinau.bus.dto;
 
-import com.skopinau.bus.model.Amenity;
+import com.skopinau.bus.entity.Amenity;
 import lombok.Builder;
 
-import java.util.List;
+import java.util.Set;
 
 @Builder
 public record BusDto(
         String number,
         String model,
         Integer capacity,
-        List<Amenity> amenities
+        Set<Amenity> amenities
 ) {
 }

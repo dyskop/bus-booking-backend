@@ -1,7 +1,7 @@
 package com.skopinau.bus.controller;
 
 import com.skopinau.bus.dto.BusDto;
-import com.skopinau.bus.model.entity.Bus;
+import com.skopinau.bus.entity.Bus;
 import com.skopinau.bus.service.BusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
