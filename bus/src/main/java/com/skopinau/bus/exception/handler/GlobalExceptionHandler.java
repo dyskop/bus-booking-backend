@@ -1,9 +1,6 @@
 package com.skopinau.bus.exception.handler;
 
-import com.skopinau.bus.exception.AmenityNotExistException;
-import com.skopinau.bus.exception.BusAlreadyExistException;
-import com.skopinau.bus.exception.BusNotExistException;
-import com.skopinau.bus.exception.RouteNotExistException;
+import com.skopinau.bus.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +26,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RouteNotExistException.class)
     public ResponseEntity<String> routeNotExist(RouteNotExistException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StationNotExistException.class)
+    public ResponseEntity<String> stationNotExist(StationNotExistException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
