@@ -1,6 +1,5 @@
 package com.skopinau.bus.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +39,5 @@ public class Bus {
     private Set<Amenity> amenities;
 
     @ManyToMany(mappedBy = "buses")
-    @JsonBackReference
     private List<Route> routes;
 }
