@@ -6,8 +6,7 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,7 +28,7 @@ public class Bus {
 
     @ManyToMany
     @JoinTable(
-            name = "bus_amenities",
+            name = "bus_amenity",
             joinColumns = @JoinColumn(name = "bus_id"),
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )

@@ -19,7 +19,7 @@ public class BusController {
 
     @GetMapping
     public ResponseEntity<List<BusDto>> findAllBuses() {
-        return ResponseEntity.ok().body(busService.findAllBuses());
+        return ResponseEntity.ok(busService.findAllBuses());
     }
 
     @PostMapping
