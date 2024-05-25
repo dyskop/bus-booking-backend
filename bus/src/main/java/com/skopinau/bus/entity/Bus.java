@@ -1,8 +1,12 @@
 package com.skopinau.bus.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,4 +37,7 @@ public class Bus {
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
     private Set<Amenity> amenities;
+
+    @ManyToMany(mappedBy = "buses")
+    private List<Route> routes;
 }

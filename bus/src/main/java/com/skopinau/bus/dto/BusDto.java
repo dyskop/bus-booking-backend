@@ -7,9 +7,10 @@ import java.util.Set;
 
 @Builder
 public record BusDto(
+        long id,
         String number,
         String model,
-        Integer capacity,
+        int capacity,
         Set<Amenity> amenities
 ) {
 }

@@ -1,6 +1,5 @@
 package com.skopinau.bus.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "segment_sequence")
-@JsonIgnoreProperties("route")
-public class SegmentSequence {
+@Table(name = "route_station")
+public class RouteStation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +23,8 @@ public class SegmentSequence {
     private Route route;
 
     @ManyToOne
-    @JoinColumn(name = "segment_id", nullable = false)
-    private Segment segment;
+    @JoinColumn(name = "station_id", nullable = false)
+    private Station station;
 
     @Column(nullable = false)
     private int sequence;

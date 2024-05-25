@@ -1,12 +1,12 @@
 package com.skopinau.bus.controller;
 
-import com.skopinau.bus.entity.Route;
+import com.skopinau.bus.dto.RouteRequestDto;
+import com.skopinau.bus.dto.RouteResponseDto;
 import com.skopinau.bus.service.RouteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +18,12 @@ public class RouteController {
     private final RouteService routeService;
 
     @GetMapping
-    public ResponseEntity<List<Route>> findAllRoutes() {
+    public ResponseEntity<List<RouteResponseDto>> findAllRoutes() {
         return ResponseEntity.ok(routeService.findAllRoutes());
+    }
+
+    @PostMapping
+    public ResponseEntity<RouteResponseDto> createRoute(@RequestBody RouteRequestDto routeRequestDto) {
+        return new ResponseEntity<>(routeService.saveRoute(routeRequestDto), HttpStatus.CREATED);
     }
 }

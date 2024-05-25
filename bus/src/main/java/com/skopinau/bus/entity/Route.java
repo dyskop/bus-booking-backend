@@ -20,6 +20,14 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
-    private List<SegmentSequence> segmentSequences;
+    @OneToMany(mappedBy = "route")
+    private List<RouteStation> routeStations;
+
+    @ManyToMany
+    @JoinTable(
+            name = "route_bus",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "bus_id")
+    )
+    private List<Bus> buses;
 }
