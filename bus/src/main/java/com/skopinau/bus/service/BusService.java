@@ -45,8 +45,8 @@ public class BusService {
                     amenity.setId(id);
                 }
         );
-        busRepository.save(busMapper.mapDtoToBus(busDto));
-        return busDto;
+        Bus bus = busRepository.save(busMapper.mapToBus(busDto));
+        return busMapper.mapToBusResponse(bus);
     }
 
     public Bus findByNumber(String number) {

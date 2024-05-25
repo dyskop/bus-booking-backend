@@ -8,5 +8,5 @@ import org.mapstruct.Mapper;
 public interface BusMapper {
 
     BusDto mapToBusResponse(Bus bus);
-    Bus mapDtoToBus(BusDto dto);
+    Bus mapToBus(BusDto dto);
 }
