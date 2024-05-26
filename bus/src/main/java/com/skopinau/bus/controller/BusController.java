@@ -25,6 +25,11 @@ public class BusController {
     public ResponseEntity<BusDto> createBus(@RequestBody BusDto busDto) {
         return new ResponseEntity<>(busService.saveBus(busDto), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BusDto> findBusById(@PathVariable long id) {
+        return ResponseEntity.ok(busService.findById(id));
+    }
 }
 
 

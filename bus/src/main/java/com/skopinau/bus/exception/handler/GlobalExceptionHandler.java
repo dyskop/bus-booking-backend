@@ -14,6 +14,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(AmenityAlreadyExistException.class)
+    public ResponseEntity<String> amenityAlreadyExist(AmenityAlreadyExistException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(BusAlreadyExistException.class)
     public ResponseEntity<String> busAlreadyExist(BusAlreadyExistException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

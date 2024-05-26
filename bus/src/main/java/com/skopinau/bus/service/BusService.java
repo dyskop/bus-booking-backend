@@ -62,4 +62,11 @@ public class BusService {
             throw new BusAlreadyExistException(message);
         });
     }
+
+    public BusDto findById(long id) {
+        Optional<Bus> busOptional = busRepository.findById(id);
+        String message = String.format(ExceptionMessage.INVALID_BUS_ID.getMessage(), id);
+        Bus bus = busOptional.orElseThrow(() -> new BusNotExistException(message));
+        return busMapper.mapToBusResponse(bus);
+    }
 }
