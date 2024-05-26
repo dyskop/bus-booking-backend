@@ -7,7 +7,6 @@ import java.util.List;
 @Builder
 public record RouteResponseDto(
         long id,
-        List<RouteStationDto> stations,
-        List<BusDto> buses
+        List<RouteStationDto> stations
 ) {
 }

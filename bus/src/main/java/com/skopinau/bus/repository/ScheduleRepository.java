@@ -1,6 +1,6 @@
-package com.skopinau.schedule.repository;
+package com.skopinau.bus.repository;
 
-import com.skopinau.schedule.entity.Schedule;
+import com.skopinau.bus.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScheduleRepository<T extends Schedule> extends JpaRepository<T, Long> {

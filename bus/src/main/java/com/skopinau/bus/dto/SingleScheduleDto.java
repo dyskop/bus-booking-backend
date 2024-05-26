@@ -1,11 +1,11 @@
-package com.skopinau.schedule.dto;
+package com.skopinau.bus.dto;
 
 import lombok.Builder;
 
 import java.time.LocalDateTime;
 
 @Builder
-public record SingleScheduleRequestDto(
+public record SingleScheduleDto(
         long routeId,
         long busId,
         LocalDateTime departureTime,

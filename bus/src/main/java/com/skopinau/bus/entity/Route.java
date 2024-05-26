@@ -1,5 +1,6 @@
 package com.skopinau.bus.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,14 +21,11 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "route")
     private List<RouteStation> routeStations;
 
-    @ManyToMany
-    @JoinTable(
-            name = "route_bus",
-            joinColumns = @JoinColumn(name = "route_id"),
-            inverseJoinColumns = @JoinColumn(name = "bus_id")
-    )
-    private List<Bus> buses;
+    @JsonIgnore
+    @OneToMany(mappedBy = "route")
+    private List<Schedule> schedules;
 }

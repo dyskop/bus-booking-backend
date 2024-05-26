@@ -1,7 +1,7 @@
-package com.skopinau.schedule.service;
+package com.skopinau.bus.service;
 
-import com.skopinau.schedule.entity.Schedule;
-import com.skopinau.schedule.repository.ScheduleRepository;
+import com.skopinau.bus.entity.Schedule;
+import com.skopinau.bus.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

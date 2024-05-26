@@ -1,6 +1,6 @@
-package com.skopinau.schedule.repository;
+package com.skopinau.bus.repository;
 
-import com.skopinau.schedule.entity.RecurringSchedule;
+import com.skopinau.bus.entity.RecurringSchedule;
 
 public interface RecurringScheduleRepository extends ScheduleRepository<RecurringSchedule> {
 }

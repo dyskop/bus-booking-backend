@@ -1,7 +1,10 @@
-package com.skopinau.schedule.entity;
+package com.skopinau.bus.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.DayOfWeek;
@@ -17,15 +20,15 @@ import java.util.Set;
 @Table(name = "recurring_schedule")
 public class RecurringSchedule extends Schedule {
 
-    @ElementCollection(targetClass = DayOfWeek.class)
-    @Enumerated(value = EnumType.STRING)
-    @CollectionTable(name = "recurring_schedule_days", joinColumns = @JoinColumn(name = "recurring_schedule_id"))
-    @Column(name = "day_of_week")
-    private Set<DayOfWeek> daysOfWeek;
-
     @Column(nullable = false)
     private LocalTime departureTime;
 
     @Column(nullable = false)
     private LocalTime arrivalTime;
+
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @Enumerated(value = EnumType.STRING)
+    @CollectionTable(name = "recurring_schedule_days", joinColumns = @JoinColumn(name = "recurring_schedule_id"))
+    @Column(name = "day_of_week")
+    private Set<DayOfWeek> daysOfWeek;
 }

@@ -1,5 +1,6 @@
 package com.skopinau.bus.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class Bus {
     @Column(nullable = false)
     private int capacity;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "bus_amenity",
@@ -38,6 +40,7 @@ public class Bus {
     )
     private Set<Amenity> amenities;
 
-    @ManyToMany(mappedBy = "buses")
-    private List<Route> routes;
+    @JsonIgnore
+    @OneToMany(mappedBy = "bus")
+    private List<Schedule> schedules;
 }

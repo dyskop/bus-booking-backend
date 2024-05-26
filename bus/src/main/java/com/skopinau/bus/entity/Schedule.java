@@ -1,6 +1,5 @@
-package com.skopinau.schedule.entity;
+package com.skopinau.bus.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +20,11 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long routeId;
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = false)
+    private Route route;
 
-    @OneToOne
-    @JoinColumn(name = "bus_assignment_id", nullable = false)
-    @JsonManagedReference
-    private BusAssignment busAssignment;
+    @ManyToOne
+    @JoinColumn(name = "bus_id", nullable = false)
+    private Bus bus;
 }

@@ -1,12 +1,13 @@
-package com.skopinau.schedule.controller;
+package com.skopinau.bus.controller;
 
-import com.skopinau.schedule.dto.SingleScheduleRequestDto;
-import com.skopinau.schedule.entity.RecurringSchedule;
-import com.skopinau.schedule.entity.Schedule;
-import com.skopinau.schedule.entity.SingleSchedule;
-import com.skopinau.schedule.service.RecurringScheduleService;
-import com.skopinau.schedule.service.ScheduleService;
-import com.skopinau.schedule.service.SingleScheduleService;
+import com.skopinau.bus.dto.RecurringScheduleDto;
+import com.skopinau.bus.dto.SingleScheduleDto;
+import com.skopinau.bus.entity.RecurringSchedule;
+import com.skopinau.bus.entity.Schedule;
+import com.skopinau.bus.entity.SingleSchedule;
+import com.skopinau.bus.service.RecurringScheduleService;
+import com.skopinau.bus.service.ScheduleService;
+import com.skopinau.bus.service.SingleScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +40,16 @@ public class ScheduleController {
     }
 
     @PostMapping("/single")
-    public ResponseEntity<SingleSchedule> createSingleSchedule(
-            @RequestBody SingleScheduleRequestDto dto
+    public ResponseEntity<SingleScheduleDto> createSingleSchedule(
+            @RequestBody SingleScheduleDto dto
             ) {
         return new ResponseEntity<>(singleScheduleService.createSingleSchedule(dto), HttpStatus.CREATED);
     }
 
+    @PostMapping("/recurring")
+    public ResponseEntity<RecurringScheduleDto> createRecurringSchedule(
+            @RequestBody RecurringScheduleDto dto
+    ) {
+        return new ResponseEntity<>(recurringScheduleService.createRecurringSchedule(dto), HttpStatus.CREATED);
+    }
 }

@@ -2,12 +2,10 @@ package com.skopinau.bus.service;
 
 import com.skopinau.bus.dto.RouteRequestDto;
 import com.skopinau.bus.dto.RouteResponseDto;
-import com.skopinau.bus.entity.Bus;
 import com.skopinau.bus.entity.Route;
 import com.skopinau.bus.entity.RouteStation;
 import com.skopinau.bus.entity.Station;
 import com.skopinau.bus.exception.RouteNotExistException;
-import com.skopinau.bus.exception.message.ExceptionMessage;
 import com.skopinau.bus.mapper.RouteMapper;
 import com.skopinau.bus.repository.RouteRepository;
 import com.skopinau.bus.repository.RouteStationRepository;
@@ -18,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
+import static com.skopinau.bus.exception.message.ExceptionMessage.ROUTE_NOT_EXIST;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +25,6 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
     private final RouteStationRepository routeStationRepository;
-    private final BusService busService;
     private final StationService stationService;
     private final RouteMapper routeMapper;
 
@@ -38,19 +36,18 @@ public class RouteService {
 
     @Transactional
     public RouteResponseDto saveRoute(RouteRequestDto routeRequestDto) {
-        Route route = Route.builder()
-                .buses(getBuses(routeRequestDto))
-                .build();
-        route = routeRepository.save(route);
+        Route route = routeRepository.save(new Route());
         List<RouteStation> routeStations = getRouteStations(routeRequestDto, route.getId());
         route.setRouteStations(routeStations);
         return routeMapper.mapToRouteResponseDto(route);
     }
 
     public Route findById(Long id) {
-        String message = String.format(ExceptionMessage.ROUTE_NOT_EXIST.getMessage(), id);
         return routeRepository.findById(id)
-                .orElseThrow(() -> new RouteNotExistException(message));
+                .orElseThrow(() -> {
+                    String message = String.format(ROUTE_NOT_EXIST.getMessage(), id);
+                    throw new RouteNotExistException(message);
+                });
     }
 
     private List<RouteStation> getRouteStations(RouteRequestDto routeRequestDto, Long routeId) {
@@ -67,12 +64,5 @@ public class RouteService {
             routeStations.add(routeStation);
         }
         return routeStations;
-    }
-
-    private List<Bus> getBuses(RouteRequestDto routeRequestDto) {
-        Set<String> busNumbers = routeRequestDto.busNumbers();
-        return busNumbers.stream()
-                .map(busService::findByNumber)
-                .toList();
     }
 }

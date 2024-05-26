@@ -28,7 +28,7 @@ public class BusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BusDto> findBusById(@PathVariable long id) {
-        return ResponseEntity.ok(busService.findById(id));
+        return ResponseEntity.ok(busService.findBusDtoById(id));
     }
 }
 

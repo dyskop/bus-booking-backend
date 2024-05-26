@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.skopinau.bus.exception.message.ExceptionMessage.AMENITY_NOT_EXIST;
+import static com.skopinau.bus.exception.message.ExceptionMessage.INVALID_BUS_NUMBER;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +39,11 @@ public class BusService {
         busDto.amenities().forEach(
                 amenity -> {
                     String name = amenity.getName();
-                    String message = String.format(AMENITY_NOT_EXIST.getMessage(), name);
                     Long id = amenityRepository.findByName(name)
-                            .orElseThrow(() -> new AmenityNotExistException(message))
+                            .orElseThrow(() -> {
+                                String message = String.format(AMENITY_NOT_EXIST.getMessage(), name);
+                                throw new AmenityNotExistException(message);
+                            })
                             .getId();
                     amenity.setId(id);
                 }
@@ -49,24 +52,24 @@ public class BusService {
         return busMapper.mapToBusResponse(bus);
     }
 
-    public Bus findByNumber(String number) {
-        Optional<Bus> busOptional = busRepository.findByNumber(number);
-        String message = String.format(ExceptionMessage.INVALID_BUS_NUMBER.getMessage(), number);
-        return busOptional.orElseThrow(() -> new BusNotExistException(message));
+    public BusDto findBusDtoById(long id) {
+        Bus bus = findBusById(id);
+        return busMapper.mapToBusResponse(bus);
+    }
+
+    public Bus findBusById(long id) {
+        Optional<Bus> busOptional = busRepository.findById(id);
+        return busOptional.orElseThrow(() -> {
+            String message = String.format(ExceptionMessage.INVALID_BUS_ID.getMessage(), id);
+            throw new BusNotExistException(message);
+        });
     }
 
     private void checkBusNumber(String number) {
         Optional<Bus> busOptional = busRepository.findByNumber(number);
-        String message = String.format(ExceptionMessage.INVALID_BUS_NUMBER.getMessage(), number);
         busOptional.ifPresent(bus -> {
+            String message = String.format(INVALID_BUS_NUMBER.getMessage(), number);
             throw new BusAlreadyExistException(message);
         });
-    }
-
-    public BusDto findById(long id) {
-        Optional<Bus> busOptional = busRepository.findById(id);
-        String message = String.format(ExceptionMessage.INVALID_BUS_ID.getMessage(), id);
-        Bus bus = busOptional.orElseThrow(() -> new BusNotExistException(message));
-        return busMapper.mapToBusResponse(bus);
     }
 }
