@@ -3,8 +3,9 @@ package com.skopinau.bus.dto;
 import lombok.Builder;
 
 @Builder
-public record StationDto(
+public record RouteStationDto(
         long id,
-        String name
+        String name,
+        int sequence
 ) {
 }

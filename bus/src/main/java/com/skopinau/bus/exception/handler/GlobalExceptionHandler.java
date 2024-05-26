@@ -38,4 +38,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> stationNotExist(StationNotExistException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(StationAlreadyExistException.class)
+    public ResponseEntity<String> stationAlreadyExist(StationAlreadyExistException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
