@@ -1,18 +1,18 @@
 services:
-  postgres-bus:
+  postgres:
     image: debezium/postgres
     environment:
-      POSTGRES_USER: bus
-      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: buses
+      POSTGRES_DB: schedule-db
     volumes:
       - postgres:/data/postgres
     ports:
       - 5432:5432
     restart: unless-stopped
     networks:
-      - bus-booking-network
+      - backend
 
   zookeeper:
     image: debezium/zookeeper
@@ -21,7 +21,7 @@ services:
       - 2888:2888
       - 3888:3888
     networks:
-      - bus-booking-network
+      - backend
 
   kafka:
     image: debezium/kafka
@@ -33,12 +33,12 @@ services:
     ports:
       - 9092:9092
     networks:
-      - bus-booking-network
+      - backend
 
   debezium:
     image: debezium/connect
     depends_on:
-      - postgres-bus
+      - postgres
       - kafka
     environment:
       GROUP_ID: 1
@@ -48,7 +48,7 @@ services:
     ports:
       - 8083:8083
     networks:
-      - bus-booking-network
+      - backend
 
   kafdrop:
     image: obsidiandynamics/kafdrop
@@ -59,10 +59,10 @@ services:
     ports:
       - 9000:9000
     networks:
-      - bus-booking-network
+      - backend
 
 networks:
-  bus-booking-network:
+  backend:
     driver: bridge
 
 volumes:

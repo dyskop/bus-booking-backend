@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.skopinau</groupId>
-	<artifactId>buses-service</artifactId>
+	<artifactId>schedule-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bus</name>
-	<description>Bus Service: Manages bus routes, schedules, and availability. Handles CRUD operations for buses and routes.</description>
+	<description>Schedule Service: Manages schedules, routes, buses and stations.</description>
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.1</spring-cloud.version>
@@ -38,7 +38,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
