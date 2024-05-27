@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.skopinau</groupId>
-	<artifactId>bus</artifactId>
+	<artifactId>buses-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bus</name>
 	<description>Bus Service: Manages bus routes, schedules, and availability. Handles CRUD operations for buses and routes.</description>

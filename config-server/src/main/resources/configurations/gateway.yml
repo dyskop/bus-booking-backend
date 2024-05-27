@@ -1,0 +1,23 @@
+eureka:
+  client:
+    register-with-eureka: false
+server:
+  port: 8081
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: buses-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/buses/**
+            - Path=/api/v1/amenities/**
+            - Path=/api/v1/routes/**
+            - Path=/api/v1/stations/**
+            - Path=/api/v1/schedules/**
