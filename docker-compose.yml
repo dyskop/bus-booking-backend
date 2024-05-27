@@ -1,7 +1,6 @@
 services:
   postgres-bus:
-    container_name: postgres-buses
-    image: postgres
+    image: debezium/postgres
     environment:
       POSTGRES_USER: bus
       POSTGRES_PASSWORD: 123
@@ -11,9 +10,56 @@ services:
       - postgres:/data/postgres
     ports:
       - 5432:5432
+    restart: unless-stopped
     networks:
       - bus-booking-network
-    restart: unless-stopped
+
+  zookeeper:
+    image: debezium/zookeeper
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+    networks:
+      - bus-booking-network
+
+  kafka:
+    image: debezium/kafka
+    depends_on:
+      - zookeeper
+    environment:
+      BROKER_ID: 1
+      ZOOKEEPER_CONNECT: zookeeper:2181
+    ports:
+      - 9092:9092
+    networks:
+      - bus-booking-network
+
+  debezium:
+    image: debezium/connect
+    depends_on:
+      - postgres-bus
+      - kafka
+    environment:
+      GROUP_ID: 1
+      BOOTSTRAP_SERVERS: kafka:9092
+      CONFIG_STORAGE_TOPIC: debezium_config
+      OFFSET_STORAGE_TOPIC: debezium_offsets
+    ports:
+      - 8083:8083
+    networks:
+      - bus-booking-network
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+    ports:
+      - 9000:9000
+    networks:
+      - bus-booking-network
 
 networks:
   bus-booking-network:
