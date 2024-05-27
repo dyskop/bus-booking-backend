@@ -9,7 +9,7 @@ server:
   port: 8090
 spring:
   application:
-    name: buses
+    name: buses-service
   config:
     import: optional:configserver:http://localhost:8888
   datasource:
