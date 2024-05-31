@@ -1,70 +1,22 @@
 services:
   postgres:
-    image: debezium/postgres
+    container_name: ms_pg_sql
+    image: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: 12345678
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: schedule-db
     volumes:
-      - postgres:/data/postgres
+      - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    networks:
+      - microservices-net
     restart: unless-stopped
-    networks:
-      - backend
-
-  zookeeper:
-    image: debezium/zookeeper
-    ports:
-      - 2181:2181
-      - 2888:2888
-      - 3888:3888
-    networks:
-      - backend
-
-  kafka:
-    image: debezium/kafka
-    depends_on:
-      - zookeeper
-    environment:
-      BROKER_ID: 1
-      ZOOKEEPER_CONNECT: zookeeper:2181
-    ports:
-      - 9092:9092
-    networks:
-      - backend
-
-  debezium:
-    image: debezium/connect
-    depends_on:
-      - postgres
-      - kafka
-    environment:
-      GROUP_ID: 1
-      BOOTSTRAP_SERVERS: kafka:9092
-      CONFIG_STORAGE_TOPIC: debezium_config
-      OFFSET_STORAGE_TOPIC: debezium_offsets
-    ports:
-      - 8083:8083
-    networks:
-      - backend
-
-  kafdrop:
-    image: obsidiandynamics/kafdrop
-    depends_on:
-      - kafka
-    environment:
-      KAFKA_BROKERCONNECT: kafka:9092
-    ports:
-      - 9000:9000
-    networks:
-      - backend
 
 networks:
-  backend:
+  microservices-net:
     driver: bridge
 
 volumes:
   postgres:
-    driver: local
