@@ -1,6 +1,10 @@
-package com.skopinau.bus.booking.exception;
+package com.skopinau.bus.booking.exception.hadler;
 
 import com.skopinau.bus.booking.dto.ErrorResponse;
+import com.skopinau.bus.booking.exception.AmenityAlreadyExistsException;
+import com.skopinau.bus.booking.exception.AmenityNotFoundException;
+import com.skopinau.bus.booking.exception.BusAlreadyExistsException;
+import com.skopinau.bus.booking.exception.BusNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,6 +43,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AmenityNotFoundException.class)
     public ResponseEntity<String> handle(AmenityNotFoundException e) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(BusAlreadyExistsException.class)
+    public ResponseEntity<String> handle(BusAlreadyExistsException e) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(BusNotFoundException.class)
+    public ResponseEntity<String> handle(BusNotFoundException e) {
         return ResponseEntity
                 .status(NOT_FOUND)
                 .body(e.getMessage());

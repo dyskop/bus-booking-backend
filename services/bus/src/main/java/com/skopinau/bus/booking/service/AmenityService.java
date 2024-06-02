@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.skopinau.bus.booking.exception.ExceptionMessage.AMENITY_ALREADY_EXISTS;
-import static com.skopinau.bus.booking.exception.ExceptionMessage.AMENITY_NOT_FOUND;
+import static com.skopinau.bus.booking.exception.message.ExceptionMessage.AMENITY_ALREADY_EXISTS;
+import static com.skopinau.bus.booking.exception.message.ExceptionMessage.AMENITY_NOT_FOUND;
 import static java.lang.String.format;
 
 @Service
@@ -59,6 +59,14 @@ public class AmenityService {
             String message = format(AMENITY_NOT_FOUND.getMessage(), id);
             throw new AmenityNotFoundException(message);
         });
+    }
+
+    public Amenity findByName(String name) {
+        return amenityRepository.findByName(name)
+                .orElseThrow(() -> {
+                    String message = format(AMENITY_NOT_FOUND.getMessage(), name);
+                    throw new AmenityNotFoundException(message);
+                });
     }
 
     public boolean existsById(long id) {

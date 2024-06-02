@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,5 +24,5 @@ public class Amenity {
     private String name;
 
     @ManyToMany(mappedBy = "amenities")
-    private Set<Bus> buses;
+    private List<Bus> buses;
 }
