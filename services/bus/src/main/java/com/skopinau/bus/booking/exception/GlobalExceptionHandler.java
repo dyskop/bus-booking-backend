@@ -11,16 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(AmenityAlreadyExistsException.class)
-    public ResponseEntity<String> handle(AmenityAlreadyExistsException e) {
-        return ResponseEntity
-                .status(BAD_REQUEST)
-                .body(e.getMessage());
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException e) {
@@ -34,5 +28,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(new ErrorResponse(errors));
+    }
+
+    @ExceptionHandler(AmenityAlreadyExistsException.class)
+    public ResponseEntity<String> handle(AmenityAlreadyExistsException e) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(AmenityNotFoundException.class)
+    public ResponseEntity<String> handle(AmenityNotFoundException e) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(e.getMessage());
     }
 }

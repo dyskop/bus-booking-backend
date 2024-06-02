@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 public record AmenityRequest(
+        long id,
         @NotNull
         String name
 ) {

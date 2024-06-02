@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public enum ExceptionMessage {
 
-    AMENITY_ALREADY_EXISTS("Amenity already exists: %s");
+    AMENITY_ALREADY_EXISTS("Amenity already exists: %s"),
+    AMENITY_NOT_FOUND("Amenity not found: %d");
 
     private final String message;
 }
