@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,7 +20,4 @@ public class Amenity {
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "amenities")
-    private List<Bus> buses;
 }

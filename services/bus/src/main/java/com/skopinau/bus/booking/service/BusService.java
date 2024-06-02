@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.skopinau.bus.booking.exception.message.ExceptionMessage.BUS_ALREADY_EXISTS;
 import static com.skopinau.bus.booking.exception.message.ExceptionMessage.BUS_NOT_FOUND;
@@ -51,7 +52,7 @@ public class BusService {
         return busRepository.findAll()
                 .stream()
                 .map(busMapper::toBusResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public BusResponse findById(long id) {
@@ -84,7 +85,7 @@ public class BusService {
         if (request.amenities() != null) {
             List<Amenity> amenities = request.amenities().stream()
                     .map(amenityService::findByName)
-                    .toList();
+                    .collect(Collectors.toList());
             bus.setAmenities(amenities);
         }
     }

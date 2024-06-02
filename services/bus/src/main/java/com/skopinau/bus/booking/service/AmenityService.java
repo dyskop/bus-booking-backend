@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.skopinau.bus.booking.exception.message.ExceptionMessage.AMENITY_ALREADY_EXISTS;
 import static com.skopinau.bus.booking.exception.message.ExceptionMessage.AMENITY_NOT_FOUND;
@@ -49,7 +50,7 @@ public class AmenityService {
         return amenityRepository.findAll()
                 .stream()
                 .map(amenityMapper::toAmenityResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public AmenityResponse findById(long id) {

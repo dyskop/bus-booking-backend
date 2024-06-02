@@ -7,6 +7,8 @@ import com.skopinau.bus.booking.service.AmenityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class BusMapper {
@@ -27,7 +29,7 @@ public class BusMapper {
                         request.amenities()
                                 .stream()
                                 .map(amenityService::findByName)
-                                .toList()
+                                .collect(Collectors.toList())
                 )
                 .build();
     }
@@ -45,7 +47,7 @@ public class BusMapper {
                         bus.getAmenities()
                                 .stream()
                                 .map(amenityMapper::toAmenityResponse)
-                                .toList()
+                                .collect(Collectors.toList())
                 )
                 .build();
     }
